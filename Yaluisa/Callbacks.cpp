@@ -153,7 +153,7 @@ void display()
 	glTranslatef(12, 0, 0);
 	glRotatef(theta3, 0.0, 0.0, 1.0);
 	glutSolidSphere(5, 20, 10);
-	//M�o
+	//Mao
 	glColor3f(1.0f, 1.0f, 0.0f);
 	glTranslatef(5, 0, 0);
 	glutSolidCube(10.0f);
@@ -178,6 +178,29 @@ void display()
 	glTranslatef(0, -3, 0);
 	glRotatef(theta5, 0.0, 0.0, 1.0);
 	//glutSolidCube(3.0f);
+	glutSolidSphere(2, 20, 10);
+	glTranslatef(3, 0, 0);
+	glutSolidCube(3.0f);
+	glTranslatef(3, 0, 0);
+	glutSolidCube(3.0f);
+
+
+	// TODO: entender como defazer "Translates" para desenhar um objeto em uma parte que já foi transladada
+	//	tentando estender os dedos
+	glutSolidSphere(2, 20, 10);
+	glTranslatef(3, 0, 0);
+	glutSolidCube(3.0f);
+	glTranslatef(3, 0, 0);
+	glutSolidCube(3.0f);
+
+	glTranslatef(-12, 0, 0);
+	//glRotatef(theta4, 0.0, 0.0, 1.0);
+	//glLoadIdentity();
+	glTranslatef(0, 6, 0);
+	glPopMatrix();
+	glRotatef(theta4, 0.0, 0.0, 1.0);
+
+	//glPopMatrix();
 	glutSolidSphere(2, 20, 10);
 	glTranslatef(3, 0, 0);
 	glutSolidCube(3.0f);
