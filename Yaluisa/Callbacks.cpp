@@ -208,10 +208,10 @@ void drawRobot() {
 		glTranslatef(0, 40, 0);
 		glRotatef(180, 1.0, 0, 0.0);
 		glColor3f(1.0f, 1.0f, 0.0f);
-		for (int i = 0; i < 3; i++) {
-			glutSolidCube(40.0f);
-			glTranslatef(0, 40, 0);
-		}
+		glutSolidCube(40.0f);
+		glTranslatef(0, 88, 0);
+		glRotatef(90, 1.0, 0.0, 0.0);
+		glutSolidCone(40, 40, 20, 10);
 	glPopMatrix();
 	glTranslatef(25, 0, 0);
 	drawArm();
