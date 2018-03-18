@@ -24,7 +24,6 @@ int main(int argc, char** argv)
 }
 
 void init() {
-
 	GLfloat luzAmbiente[4] = { 0.2,0.2,0.2,1.0 };
 	GLfloat luzDifusa[4] = { 0.7,0.7,0.7,1.0 };	   // "cor" 
 	GLfloat luzEspecular[4] = { 1.0, 1.0, 1.0, 1.0 };// "brilho" 

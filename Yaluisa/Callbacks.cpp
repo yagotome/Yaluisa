@@ -1,10 +1,11 @@
 ﻿#include <stdlib.h>
 #include <GL/glut.h>
 #include "Callbacks.h"
+#include "Robot.h"
 #define ROTATION_OFFSET 5.0
 
 GLfloat angle = 45, fAspect;
-GLdouble obsX = 0, obsY = 0, obsZ = 200;
+GLdouble obsX = -10, obsY = 100, obsZ = 300;
 GLfloat theta1 = 0.0;
 GLfloat theta2 = 0.0;
 GLfloat theta3 = 0.0;
@@ -122,90 +123,107 @@ void AdjustCamera(void)
 	gluLookAt(obsX, obsY, obsZ, 0, 0, 0, 0, 1, 0);
 }
 
+void drawArm() {
+	glPushMatrix();
+		//Ombro
+		glColor3f(0.66f, 0.66f, 0.66f);
+		glRotatef(theta1, 0.0, 1.0, 0.0);
+		glRotatef(theta6, 0.0, 0.0, 1.0);
+		glutSolidSphere(15, 20, 10);
+		//Biceps
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glTranslatef(20, 0, 0);
+		glutSolidCube(15.0f);
+		glTranslatef(15, 0, 0);
+		glutSolidCube(15.0f);
+		//Cotovelo
+		glColor3f(0.66f, 0.66f, 0.66f);
+		glTranslatef(13, 0, 0);
+		glRotatef(theta2, 0.0, 0.0, 1.0);
+		glutSolidSphere(7, 20, 10);
+		//Antebraco 
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glTranslatef(7, 0, 0);
+		glutSolidCube(15.0f);
+		glTranslatef(15, 0, 0);
+		glutSolidCube(15.0f);
+		//Pulso
+		glColor3f(0.66f, 0.66f, 0.66f);
+		glTranslatef(12, 0, 0);
+		glRotatef(theta3, 0.0, 0.0, 1.0);
+		glutSolidSphere(5, 20, 10);
+		//Mao
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glTranslatef(5, 0, 0);
+		glutSolidCube(10.0f);
+		//Dedo1
+		glPushMatrix();
+			glColor3f(0.66f, 0.66f, 0.66f);
+			glTranslatef(6, 3, 0);
+			//glutSolidCube(3.0f);
+			glRotatef(theta4, 0.0, 0.0, 1.0);
+			glutSolidSphere(2, 20, 10);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+
+			glutSolidSphere(2, 20, 10);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+		glPopMatrix();
+		//Base
+		glColor3f(0.66f, 0.66f, 0.66f);
+		glTranslatef(6, 0, 0);
+		glutSolidCube(3.0f);
+		//Dedo2
+		glPushMatrix();
+			glColor3f(0.66f, 0.66f, 0.66f);
+			glTranslatef(0, -3, 0);
+			glRotatef(theta5, 0.0, 0.0, 1.0);
+			//glutSolidCube(3.0f);
+			glutSolidSphere(2, 20, 10);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+
+			glutSolidSphere(2, 20, 10);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+			glTranslatef(3, 0, 0);
+			glutSolidCube(3.0f);
+		glPopMatrix();
+	glPopMatrix();
+}
+
+void drawRobot() {
+	drawArm();
+	glRotatef(180, 0.0, 1.0, 0.0);
+	glTranslatef(25, 0, 0);
+	glPushMatrix();
+		glutSolidCube(40);
+		glTranslatef(0, 40, 0);
+		glRotatef(180, 1.0, 0, 0.0);
+		glColor3f(1.0f, 1.0f, 0.0f);
+		for (int i = 0; i < 3; i++) {
+			glutSolidCube(40.0f);
+			glTranslatef(0, 40, 0);
+		}
+	glPopMatrix();
+	glTranslatef(25, 0, 0);
+	drawArm();
+}
+
+Robot* robot = new Robot(3);
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//Ombro
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glRotatef(theta1, 0.0, 1.0, 0.0);
-	glRotatef(theta6, 0.0, 0.0, 1.0);
-	glutSolidSphere(15, 20, 10);
-	//Biceps
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glTranslatef(20, 0, 0);
-	glutSolidCube(15.0f);
-	glTranslatef(15, 0, 0);
-	glutSolidCube(15.0f);
-	//Cotovelo
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glTranslatef(13, 0, 0);
-	glRotatef(theta2, 0.0, 0.0, 1.0);
-	glutSolidSphere(7, 20, 10);
-	//Antebraco 
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glTranslatef(7, 0, 0);
-	glutSolidCube(15.0f);
-	glTranslatef(15, 0, 0);
-	glutSolidCube(15.0f);
-	//Pulso
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glTranslatef(12, 0, 0);
-	glRotatef(theta3, 0.0, 0.0, 1.0);
-	glutSolidSphere(5, 20, 10);
-	//Mao
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glTranslatef(5, 0, 0);
-	glutSolidCube(10.0f);
-	//Dedo1
-	glPushMatrix();
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glTranslatef(6, 3, 0);
-	//glutSolidCube(3.0f);
-	glRotatef(theta4, 0.0, 0.0, 1.0);
-	glutSolidSphere(2, 20, 10);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-	glPopMatrix();
-	//Base
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glTranslatef(6, 0, 0);
-	glutSolidCube(3.0f);
-	//Dedo2
-	glColor3f(0.66f, 0.66f, 0.66f);
-	glTranslatef(0, -3, 0);
-	glRotatef(theta5, 0.0, 0.0, 1.0);
-	//glutSolidCube(3.0f);
-	glutSolidSphere(2, 20, 10);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-
-
-	// TODO: entender como defazer "Translates" para desenhar um objeto em uma parte que já foi transladada
-	//	tentando estender os dedos
-	glutSolidSphere(2, 20, 10);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-
-	glTranslatef(-12, 0, 0);
-	//glRotatef(theta4, 0.0, 0.0, 1.0);
-	//glLoadIdentity();
-	glTranslatef(0, 6, 0);
-	glPopMatrix();
-	glRotatef(theta4, 0.0, 0.0, 1.0);
-
-	//glPopMatrix();
-	glutSolidSphere(2, 20, 10);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
-	glTranslatef(3, 0, 0);
-	glutSolidCube(3.0f);
+	//robot->draw();
+	drawRobot();
 
 	AdjustCamera();
 	// Executa os comandos OpenGL

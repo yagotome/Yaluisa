@@ -21,8 +21,8 @@
     <ClCompile Include="Callbacks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Robot.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Robot.h">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
