@@ -1,4 +1,5 @@
 #include <GL/freeglut.h>
+#include "Utils.h"
 
 class Color {
 public:
@@ -7,6 +8,12 @@ public:
 		r = 1;
 		g = 1;
 		b = 1;
+	}
+	Color(string hexColor) {
+		float* color = Utils::ParseColor(hexColor);
+		r = color[0];
+		g = color[1];
+		b = color[2];
 	}
 	Color(GLfloat r, GLfloat g, GLfloat b) {
 		this->r = r;
@@ -47,6 +54,16 @@ public:
 	}
 };
 
+class Cone : public ObjectBase {
+public:
+	int base;
+	void draw() {
+		ObjectBase::predraw();
+		glRotatef(90, 1, 0, 0);
+		glutSolidCone(base, size, 20, 10);
+	}
+};
+
 class CubeChain : public ObjectBase {
 public:
 	int cubeAmount;
@@ -73,59 +90,28 @@ public:
 	Sphere* fingerArticulation2 = new Sphere();
 	CubeChain* finger1 = new CubeChain(2);
 	CubeChain* finger2 = new CubeChain(2);
-	Hand(int size) : ObjectBase() {
-		palm->size = size;
-		fingerArticulation1->size = size;
-		fingerArticulation2->size = size;
-		finger1->size = size;
-		finger2->size = size;
-	}
-	void updatePositions() {
-		palm->x = x;
-		fingerArticulation1->x = palm->size;
-		fingerArticulation1->y = palm->size * 2 / 5.0;
-		fingerArticulation2->x = fingerArticulation1->x;
-		fingerArticulation2->y = palm->size * 4 / 5.0;
-		finger1->x = 0.5 * (fingerArticulation1->size + finger1->size);
-		finger2->x = 0.5 * (fingerArticulation2->size + finger2->size);
-	}
 	void draw() {
 		ObjectBase::predraw();
 		palm->draw();
+
 		glPushMatrix();
-		fingerArticulation1->draw();
-		finger1->draw();
+			fingerArticulation1->draw();
+			finger1->draw();
 		glPopMatrix();
+
 		fingerArticulation2->draw();
 		finger2->draw();
 	}
 };
 
-class Arm : ObjectBase {
+class Arm : public ObjectBase {
 public:
 	Sphere * shoulder = new Sphere();
 	CubeChain* biceps = new CubeChain(2);
 	Sphere* elbow = new Sphere();
 	CubeChain* foreArm = new CubeChain(2);
 	Sphere* wrist = new Sphere();
-	Hand* hand;
-	Arm(int size) : ObjectBase() {
-		shoulder->size = size;
-		biceps->size = size;
-		elbow->size = size;
-		foreArm->size = size;
-		wrist->size = size;
-		hand = new Hand(size);
-		updatePositions();
-	}
-	void updatePositions() {
-		biceps->x = shoulder->size;
-		elbow->x = biceps->size;
-		foreArm->x = 0.5 * foreArm->size;
-		wrist->x = 0.5 * (foreArm->size + wrist->size);
-		hand->x = 0.5 * hand->size;
-		hand->updatePositions();
-	}
+	Hand* hand = new Hand();
 	void draw() {
 		ObjectBase::predraw();
 		shoulder->draw();
@@ -137,16 +123,28 @@ public:
 	}
 };
 
-class Robot : ObjectBase {
+class Robot : public ObjectBase {
 public:
-	Arm * leftArm;
-	//Arm * rightArm = new Arm();
-	Robot(int size) : ObjectBase() {
-		leftArm = new Arm(size);
-	}
+	Arm * leftArm = new Arm();
+	Arm * rightArm = new Arm();
+	Sphere* body = new Sphere();
+	Sphere* head = new Sphere();
+	Cone* dress = new Cone();
 	void draw() {
 		ObjectBase::predraw();
-		leftArm->draw();
-		//rightArm->draw();
+		glPushMatrix();
+			leftArm->draw();
+		glPopMatrix();
+
+		glRotatef(180, 0, 1, 0);
+
+		glPushMatrix();
+			body->draw();
+			head->draw();
+			glRotatef(180, 1, 0, 0);
+			dress->draw();
+		glPopMatrix();
+
+		rightArm->draw();
 	}
 };
