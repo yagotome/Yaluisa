@@ -127,7 +127,8 @@
   <ItemGroup>
     <ClCompile Include="Callbacks.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Robot.h" />
+    <ClCompile Include="Robot.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Callbacks.h" />

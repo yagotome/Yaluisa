@@ -1,8 +1,10 @@
 ﻿#include <stdlib.h>
 #include <GL/glut.h>
 #include "Callbacks.h"
-#include "Robot.h"
+#include "Robot.cpp"
+#include "Utils.cpp"
 #define ROTATION_OFFSET 5.0
+//#define PINK 
 
 GLfloat angle = 45, fAspect;
 GLdouble obsX = -10, obsY = 100, obsZ = 300;
@@ -204,14 +206,19 @@ void drawRobot() {
 	glRotatef(180, 0.0, 1.0, 0.0);
 	glTranslatef(25, 0, 0);
 	glPushMatrix();
-		glutSolidCube(40);
-		glTranslatef(0, 40, 0);
+		//glutSolidCube(40);
+		//glColor3f(0.97f, 0.32f, 0.78f);
+		glColor3fv(Utils::ParseColor("#f74fc7"));
+		glutSolidSphere(30, 20, 10);
+		glTranslatef(0, 42, 0);
 		glRotatef(180, 1.0, 0, 0.0);
 		glColor3f(1.0f, 1.0f, 0.0f);
-		glutSolidCube(40.0f);
-		glTranslatef(0, 88, 0);
+		glutSolidSphere(20, 20, 10);
+		glColor3f(0.97f, 0.32f, 0.78f);
+		//glutSolidCube(40.0f);
+		glTranslatef(0, 100, 0);
 		glRotatef(90, 1.0, 0.0, 0.0);
-		glutSolidCone(40, 40, 20, 10);
+		glutSolidCone(40, 120, 20, 10);
 	glPopMatrix();
 	glTranslatef(25, 0, 0);
 	drawArm();
