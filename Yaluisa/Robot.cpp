@@ -66,7 +66,7 @@ public:
 	}
 };
 
-class Hand : ObjectBase {
+class Hand : public ObjectBase {
 public:
 	CubeChain * palm = new CubeChain(1);
 	Sphere* fingerArticulation1 = new Sphere();
@@ -75,27 +75,27 @@ public:
 	CubeChain* finger2 = new CubeChain(2);
 	Hand(int size) : ObjectBase() {
 		palm->size = size;
-		fingerArticulation1->x = size;
-		fingerArticulation1->y = palm->size * 2 / 5.0;;
-		fingerArticulation1->size = palm->size;
-
-		fingerArticulation2->x = palm->size;
-		fingerArticulation2->y = palm->size * 4 / 5.0;;
+		fingerArticulation1->size = size;
 		fingerArticulation2->size = size;
-
 		finger1->size = size;
-		finger1->x = fingerArticulation1->size;
-		//finger1->y = fingerArticulation1->y;
-
 		finger2->size = size;
-		finger2->x = fingerArticulation2->size;
-		//finger2->y = fingerArticulation2->y;
+	}
+	void updatePositions() {
+		palm->x = x;
+		fingerArticulation1->x = palm->size;
+		fingerArticulation1->y = palm->size * 2 / 5.0;
+		fingerArticulation2->x = fingerArticulation1->x;
+		fingerArticulation2->y = palm->size * 4 / 5.0;
+		finger1->x = 0.5 * (fingerArticulation1->size + finger1->size);
+		finger2->x = 0.5 * (fingerArticulation2->size + finger2->size);
 	}
 	void draw() {
 		ObjectBase::predraw();
 		palm->draw();
+		glPushMatrix();
 		fingerArticulation1->draw();
 		finger1->draw();
+		glPopMatrix();
 		fingerArticulation2->draw();
 		finger2->draw();
 	}
@@ -116,6 +116,15 @@ public:
 		foreArm->size = size;
 		wrist->size = size;
 		hand = new Hand(size);
+		updatePositions();
+	}
+	void updatePositions() {
+		biceps->x = shoulder->size;
+		elbow->x = biceps->size;
+		foreArm->x = 0.5 * foreArm->size;
+		wrist->x = 0.5 * (foreArm->size + wrist->size);
+		hand->x = 0.5 * hand->size;
+		hand->updatePositions();
 	}
 	void draw() {
 		ObjectBase::predraw();

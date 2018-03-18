@@ -4,7 +4,6 @@
 #include "Robot.cpp"
 #include "Utils.cpp"
 #define ROTATION_OFFSET 5.0
-//#define PINK 
 
 GLfloat angle = 45, fAspect;
 GLdouble obsX = -10, obsY = 100, obsZ = 300;
@@ -14,6 +13,74 @@ GLfloat theta3 = 0.0;
 GLfloat theta4 = 0.0;
 GLfloat theta5 = 0.0;
 GLfloat theta6 = 0.0;
+
+Robot* robot = new Robot(3);
+
+void initRobot() {
+	robot->leftArm->shoulder->size = 15;
+	robot->leftArm->biceps->x = 20;
+	robot->leftArm->biceps->size = 15;
+	robot->leftArm->elbow->x = 13;
+	robot->leftArm->elbow->size = 7;
+	robot->leftArm->foreArm->x = 7;
+	robot->leftArm->foreArm->size = 15;
+	robot->leftArm->wrist->x = 12;
+	robot->leftArm->wrist->size = 5;
+	robot->leftArm->hand->palm->x = 5;
+	robot->leftArm->hand->palm->size = 10;
+	robot->leftArm->hand->fingerArticulation1->x = 6;
+	robot->leftArm->hand->fingerArticulation1->y = 3;
+	robot->leftArm->hand->fingerArticulation1->size = 2;
+	robot->leftArm->hand->finger1->x = 3;
+	robot->leftArm->hand->finger1->size = 3;
+	robot->leftArm->hand->fingerArticulation2->x = 6;
+	robot->leftArm->hand->fingerArticulation2->y = -3;
+	robot->leftArm->hand->fingerArticulation2->size = 2;
+	robot->leftArm->hand->finger2->x = 3;
+	robot->leftArm->hand->finger2->size = 3;
+}
+
+void init() {
+	GLfloat luzAmbiente[4] = { 0.2,0.2,0.2,1.0 };
+	GLfloat luzDifusa[4] = { 0.7,0.7,0.7,1.0 };	   // "cor" 
+	GLfloat luzEspecular[4] = { 1.0, 1.0, 1.0, 1.0 };// "brilho" 
+	GLfloat posicaoLuz[4] = { 0.0, 50.0, 50.0, 1.0 };
+
+	// Capacidade de brilho do material
+	GLfloat especularidade[4] = { 1.0,1.0,1.0,1.0 };
+	GLint especMaterial = 60;
+
+	// Especifica que a cor de fundo da janela sera preta
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	// Habilita o modelo de colorizacao de Gouraud
+	glShadeModel(GL_SMOOTH);
+
+	// Define a refletancia do material 
+	glMaterialfv(GL_FRONT, GL_SPECULAR, especularidade);
+	// Define a concentracao do brilho
+	glMateriali(GL_FRONT, GL_SHININESS, especMaterial);
+
+	// Ativa o uso da luz ambiente 
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
+
+	// Define os parametros da luz de numero 0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, luzDifusa);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, luzEspecular);
+	glLightfv(GL_LIGHT0, GL_POSITION, posicaoLuz);
+
+	// Habilita a definicao da cor do material a partir da cor corrente
+	glEnable(GL_COLOR_MATERIAL);
+	//Habilita o uso de iluminacao
+	glEnable(GL_LIGHTING);
+	// Habilita a luz de numero 0
+	glEnable(GL_LIGHT0);
+	// Habilita o depth-buffering
+	glEnable(GL_DEPTH_TEST);
+
+	initRobot();
+}
 
 void special(int key, int, int) {
 
@@ -224,13 +291,21 @@ void drawRobot() {
 	drawArm();
 }
 
-Robot* robot = new Robot(3);
+void updateAngles() {
+	robot->leftArm->shoulder->angleY = theta1;
+	robot->leftArm->shoulder->angleZ = theta6;
+	robot->leftArm->elbow->angleZ = theta2;
+	robot->leftArm->wrist->angleZ = theta3;
+	robot->leftArm->hand->fingerArticulation1->angleZ = theta4;
+	robot->leftArm->hand->fingerArticulation2->angleZ = theta5;
+}
 
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//robot->draw();
-	drawRobot();
+	updateAngles();
+	robot->draw();
+	//drawRobot();
 
 	AdjustCamera();
 	// Executa os comandos OpenGL
