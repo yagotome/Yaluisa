@@ -33,11 +33,25 @@ void initRobot() {
 	robot->leftArm->hand->fingerArticulation2->size = 2;
 	robot->leftArm->hand->finger2->x = 3;
 	robot->leftArm->hand->finger2->size = 3;
-	robot->leftArm->color = new Color("#c6af9b");
+	robot->leftArm->shoulder->color = new Color("#c6af9b");
+	robot->leftArm->biceps->color = new Color("#c6af9b");
+	robot->leftArm->elbow->color = new Color("#c6af9b");
+	robot->leftArm->foreArm->color = new Color("#c6af9b");
+	robot->leftArm->wrist->color = new Color("#c6af9b");
+	robot->leftArm->hand->palm->color = new Color("#c6af9b");
+	robot->leftArm->hand->finger1->color = new Color("#c6af9b");
+	robot->leftArm->hand->finger2->color = new Color("#c6af9b");
 
 	robot->rightArm = new Arm(*robot->leftArm);
 	robot->rightArm->x = 50;
-	robot->rightArm->color = new Color("#c6af9b");
+	robot->rightArm->shoulder->color = new Color("#c6af9b");
+	robot->rightArm->biceps->color = new Color("#c6af9b");
+	robot->rightArm->elbow->color = new Color("#c6af9b");
+	robot->rightArm->foreArm->color = new Color("#c6af9b");
+	robot->rightArm->wrist->color = new Color("#c6af9b");
+	robot->rightArm->hand->palm->color = new Color("#c6af9b");
+	robot->rightArm->hand->finger1->color = new Color("#c6af9b");
+	robot->rightArm->hand->finger2->color = new Color("#c6af9b");
 	// this code below makes right arm moviment independent from left arm
 	/*robot->rightArm->shoulder = new Sphere(*robot->leftArm->shoulder);
 	robot->rightArm->biceps = new CubeChain(*robot->leftArm->biceps);
@@ -57,7 +71,7 @@ void initRobot() {
 	
 	robot->head->y = 42;
 	robot->head->size = 20;
-	robot->head->color = new Color("#f4e242");
+	robot->head->color = new Color("#c6af9b");
 
 	robot->dress->y = 145;
 	robot->dress->base = 40;
