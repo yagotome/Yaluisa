@@ -223,21 +223,25 @@ void keyboard(unsigned char key, int x, int y)
 		if (angle <= 130) angle += 5;
 		break;
 	case 'l':
+	case 'L':
 		if (robot->x >= -100 && robot->x < 155) {
 			robot->x += 5;
 		}
 		break;
 	case 'j':
+	case 'J':
 		if (robot->x > -100 && robot->x <= 155) {
 			robot->x -= 5;
 		}
 		break;
+	case 'k':
 	case 'k':
 		if (robot->z >= -145 && robot->z < 60) {
 			robot->z += 5;
 		}
 		break;
 	case 'i':
+	case 'I':
 		if (robot->z > -145 && robot->z <= 60) {
 			robot->z -= 5;
 		}
