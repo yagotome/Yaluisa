@@ -235,7 +235,7 @@ void keyboard(unsigned char key, int x, int y)
 		}
 		break;
 	case 'k':
-	case 'k':
+	case 'K':
 		if (robot->z >= -145 && robot->z < 60) {
 			robot->z += 5;
 		}
