@@ -59,7 +59,7 @@ void initRobot() {
 	robot->head->size = 20;
 	robot->head->color = new Color("#f4e242");
 
-	robot->dress->y = 125;
+	robot->dress->y = 145;
 	robot->dress->base = 40;
 	robot->dress->size = 120;
 	robot->dress->color = new Color("#9b1577");
