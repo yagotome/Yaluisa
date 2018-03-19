@@ -126,45 +126,65 @@ void keyboard(unsigned char key, int x, int y)
 	switch (key) {
 	case 'D':
 	case 'd':
-		robot->leftArm->shoulder->angleY += ROTATION_OFFSET;
+		if (robot->leftArm->shoulder->angleY >= -60 && robot->leftArm->shoulder->angleY < 60) {
+			robot->leftArm->shoulder->angleY += ROTATION_OFFSET;
+		}
 		break;
 	case 'A':
 	case 'a':
-		robot->leftArm->shoulder->angleY -= ROTATION_OFFSET;
+		if (robot->leftArm->shoulder->angleY > -60 && robot->leftArm->shoulder->angleY <= 60) {
+			robot->leftArm->shoulder->angleY -= ROTATION_OFFSET;
+		}
 		break;
 	case 'R':
 	case 'r':
-		robot->leftArm->shoulder->angleZ += ROTATION_OFFSET;
+		if (robot->leftArm->shoulder->angleZ >= -70 && robot->leftArm->shoulder->angleZ < 85) {
+			robot->leftArm->shoulder->angleZ += ROTATION_OFFSET;
+		}
 		break;
 	case 'F':
 	case 'f':
-		robot->leftArm->shoulder->angleZ -= ROTATION_OFFSET;
+		if (robot->leftArm->shoulder->angleZ > -70 && robot->leftArm->shoulder->angleZ <= 85) {
+			robot->leftArm->shoulder->angleZ -= ROTATION_OFFSET;
+		}
 		break;
 	case 'W':
 	case 'w':
-		robot->leftArm->elbow->angleZ += ROTATION_OFFSET;
+		if (robot->leftArm->elbow->angleZ >= -40 && robot->leftArm->elbow->angleZ < 40) {
+			robot->leftArm->elbow->angleZ += ROTATION_OFFSET;
+		}
 		break;
 	case 'S':
 	case 's':
-		robot->leftArm->elbow->angleZ -= ROTATION_OFFSET;
+		if (robot->leftArm->elbow->angleZ > -40 && robot->leftArm->elbow->angleZ <= 40) {
+			robot->leftArm->elbow->angleZ -= ROTATION_OFFSET;
+		}
 		break;
 	case 'T':
 	case 't':
-		robot->leftArm->wrist->angleZ += ROTATION_OFFSET;
+		if (robot->leftArm->wrist->angleZ >= -70 && robot->leftArm->wrist->angleZ < 70) {
+			robot->leftArm->wrist->angleZ += ROTATION_OFFSET;
+		}
 		break;
 	case 'G':
 	case 'g':
-		robot->leftArm->wrist->angleZ -= ROTATION_OFFSET;
+		if (robot->leftArm->wrist->angleZ > -70 && robot->leftArm->wrist->angleZ <= 70) {
+			robot->leftArm->wrist->angleZ -= ROTATION_OFFSET;
+		}
 		break;
 	case 'E':
 	case 'e':
-		robot->leftArm->hand->fingerArticulation1->angleZ += ROTATION_OFFSET;
-		robot->leftArm->hand->fingerArticulation2->angleZ -= ROTATION_OFFSET;
+		if (robot->leftArm->hand->fingerArticulation1->angleZ >= -15 && robot->leftArm->hand->fingerArticulation1->angleZ < 60) {
+			robot->leftArm->hand->fingerArticulation1->angleZ += ROTATION_OFFSET;
+			robot->leftArm->hand->fingerArticulation2->angleZ -= ROTATION_OFFSET;
+		}
 		break;
 	case 'Q':
 	case 'q':
-		robot->leftArm->hand->fingerArticulation1->angleZ -= ROTATION_OFFSET;
-		robot->leftArm->hand->fingerArticulation2->angleZ += ROTATION_OFFSET;
+		if (robot->leftArm->hand->fingerArticulation1->angleZ > -15 && robot->leftArm->hand->fingerArticulation1->angleZ <= 60) {
+			robot->leftArm->hand->fingerArticulation1->angleZ -= ROTATION_OFFSET;
+			robot->leftArm->hand->fingerArticulation2->angleZ += ROTATION_OFFSET;
+		}
 		break;
 	case 'Z':
 	case 'z':
@@ -174,6 +194,26 @@ void keyboard(unsigned char key, int x, int y)
 	case 'x':
 		if (angle <= 130) angle += 5;
 		break;
+	case 'l':
+		if (robot->x >= -100 && robot->x < 155) {
+			robot->x += 5;
+		}
+		break;
+	case 'j':
+		if (robot->x > -100 && robot->x <= 155) {
+			robot->x -= 5;
+		}
+		break;
+	case 'k':
+		if (robot->z >= -175 && robot->z < 60) {
+			robot->z += 5;
+		}
+		break;
+	case 'i':
+		if (robot->z > -175 && robot->z <= 60) {
+			robot->z -= 5;
+		}
+		break;
 	case '\x1B':
 		exit(EXIT_SUCCESS);
 		break;
@@ -181,6 +221,18 @@ void keyboard(unsigned char key, int x, int y)
 		return;
 	}
 	glutPostRedisplay();
+}
+
+void drawPlatform()
+{
+	glTranslated(-180, -80, -150);
+	for (int i = 0; i < 24; i++) {
+		for (int j = 0; j < 8; j++) {
+			glTranslated(40, 0, 0);
+			glutSolidCube(40);
+		}
+		glTranslated(-320, 0, 10);
+	}
 }
 
 void adjustCamera()
@@ -200,7 +252,11 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	glPushMatrix();
 	robot->draw();
+	glPopMatrix();
+
+	drawPlatform();
 
 	adjustProjection();
 	adjustCamera();
