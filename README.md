@@ -12,21 +12,21 @@ Robô desenvolvido pelos alunos
 ## Manual de Instruções
 
 * Movimentos do Robô
-    - D, d: 
-    - A, a:
-    - R, r:
-    - F, f:
-    - W, w:
-    - S, s:
-    - T, t:
-    - G, g:
-    - E, e:
-    - Q, q:
-    - Z, z:
-    - X, x:
-    - l:
-    - k:
-    - i:
+    - D, d: Gira os braços para direita
+    - A, a: Gira os braços para esquerda
+    - R, r: Movimenta o braço para cima
+    - F, f: Movimenta o braço para baixo
+    - W, w: Movimenta os antibraços para fora
+    - S, s: Movimenta os antibraços para dentro
+    - T, t: Movimenta os pulsos para fora
+    - G, g: Movimenta os pulsos para dentro
+    - E, e: Abre os dedos
+    - Q, q: Fecha os dedos
+    
+* Zoom
+    - Z, z: aumenta
+    - X, x: diminui
+
 
 
 ## Observações
