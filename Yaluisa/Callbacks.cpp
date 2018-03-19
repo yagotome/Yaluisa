@@ -56,7 +56,7 @@ void initRobot() {
 	robot->head->y = 42;
 	robot->head->size = 20;
 
-	robot->dress->y = 100;
+	robot->dress->y = 125;
 	robot->dress->base = 40;
 	robot->dress->size = 120;
 	robot->dress->color = new Color("#f74fc7");
@@ -138,13 +138,13 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	case 'R':
 	case 'r':
-		if (robot->leftArm->shoulder->angleZ >= -70 && robot->leftArm->shoulder->angleZ < 85) {
+		if (robot->leftArm->shoulder->angleZ >= -60 && robot->leftArm->shoulder->angleZ < 85) {
 			robot->leftArm->shoulder->angleZ += ROTATION_OFFSET;
 		}
 		break;
 	case 'F':
 	case 'f':
-		if (robot->leftArm->shoulder->angleZ > -70 && robot->leftArm->shoulder->angleZ <= 85) {
+		if (robot->leftArm->shoulder->angleZ > -60 && robot->leftArm->shoulder->angleZ <= 85) {
 			robot->leftArm->shoulder->angleZ -= ROTATION_OFFSET;
 		}
 		break;
@@ -205,12 +205,12 @@ void keyboard(unsigned char key, int x, int y)
 		}
 		break;
 	case 'k':
-		if (robot->z >= -175 && robot->z < 60) {
+		if (robot->z >= -145 && robot->z < 60) {
 			robot->z += 5;
 		}
 		break;
 	case 'i':
-		if (robot->z > -175 && robot->z <= 60) {
+		if (robot->z > -145 && robot->z <= 60) {
 			robot->z -= 5;
 		}
 		break;
@@ -225,7 +225,7 @@ void keyboard(unsigned char key, int x, int y)
 
 void drawPlatform()
 {
-	glTranslated(-180, -80, -150);
+	glTranslated(-180, -120, -150);
 	for (int i = 0; i < 24; i++) {
 		for (int j = 0; j < 8; j++) {
 			glTranslated(40, 0, 0);
