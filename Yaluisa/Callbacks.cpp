@@ -100,23 +100,34 @@ void special(int key, int, int) {
 
 	switch (key) {
 	case GLUT_KEY_LEFT:
-		obsX -= 10;
+		if (obsX > -100 && obsX <= 100) {
+			obsX -= 5;
+		}
 		break;
 	case GLUT_KEY_RIGHT:
-		obsX += 10;
+		if (obsX >= -100 && obsX < 100) {
+			obsX += 5;
+		}
 		break;
 	case GLUT_KEY_UP:
-		obsY += 10;
+		if (obsY >= -90 && obsY < 160) {
+			obsY += 5;
+		}
 		break;
 	case GLUT_KEY_DOWN:
-		obsY -= 10;
+		if (obsY > -90 && obsY <= 160) {
+			obsY -= 5;
+		}
 		break;
-
 	case GLUT_KEY_HOME:
-		obsZ += 10;
+		if (obsZ >= -320 && obsZ < 330) {
+			obsZ += 5;
+		}
 		break;
 	case GLUT_KEY_END:
-		obsZ -= 10;
+		if (obsZ > -320 && obsZ <= 330) {
+			obsZ -= 5;
+		}
 		break;
 	}
 	glLoadIdentity();
