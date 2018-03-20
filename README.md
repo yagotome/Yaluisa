@@ -14,8 +14,8 @@ Robô desenvolvido pelos alunos
 * Movimentos do Robô
     - D, d: Movimenta os braços para direita
     - A, a: Movimenta os braços para esquerda
-    - R, r: Movimenta o braço para cima
-    - F, f: Movimenta o braço para baixo
+    - R, r: Movimenta os braços para cima
+    - F, f: Movimenta os braços para baixo
     - W, w: Movimenta os antebraços para cima
     - S, s: Movimenta os antebraços para baixo
     - T, t: Movimenta os pulsos para cima
@@ -31,7 +31,8 @@ Robô desenvolvido pelos alunos
     - Z, z: aumenta
     - X, x: diminui
 
-
+* Câmera
+    - setas do teclado para movimentar a câmera
 
 ## Observações
 
@@ -41,6 +42,6 @@ Uma classe para cada membro.
 * Cone
 * CubeChain
 * Hand
-* ObjectBase - "classe básica com x = y = z = size = 0 (comum à todas as classes) e método abstrato draw()"
+* ObjectBase - "classe base com x = y = z = size = 0 (comum à todas as classes) e método abstrato draw()"
 * Robot
 * Sphere
